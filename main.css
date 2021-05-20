@@ -23,7 +23,6 @@ body .bird {
   top: 40vh;
   left: 30vw;
   z-index: 100;
-  border-radius: 50%;
 }
 body .button {
   position: absolute;

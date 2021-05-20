@@ -15,35 +15,47 @@
 
 bird = document.querySelector(".bird");
 background = document.querySelector(".background");
+score = document.querySelector(".score");
 
 bird_rect = bird.getBoundingClientRect();
 background_rect = background.getBoundingClientRect();
 
-let gravity = 7.6;
+let gravity = 3;
 let birdTop;
+let birdBot;
 let fired = false;
+let isJumping = false;
 
 function applyGravity() {
   birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  bird.style.top = birdTop + gravity / 2 + "px";
+  birdBot = parseInt(window.getComputedStyle(bird).getPropertyValue("bottom"));
+  //if jumping is pressed, gravity isn't allowed to operate
+  if (!isJumping) {
+    bird.style.top = birdTop + gravity + "px";
+  }
 }
 
 setInterval(applyGravity, 20);
 
-//if space is pressed, gravity isn't allowed to operate
 document.addEventListener("keydown", () => {
   if (!fired) {
     fly();
     fired = true;
   }
 });
+
 document.addEventListener("keyup", () => {
   fired = false;
 });
 
 function fly() {
+  isJumping = true;
   birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  bird.style.top = birdTop - gravity * 10 + "px";
+  if (birdTop <= 90) {
+    bird.style.top = birdTop;
+  } else {
+    bird.style.top = birdTop - gravity * 15 + "px";
+  }
+  isJumping = false;
+  console.log();
 }
-
-//console.log(window.getComputedStyle(bird).getPropertyValue("top"));
