@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+
+$font-family: "Electrolize", sans-serif;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $font-family;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+
+  .background {
+    height: 100vh;
+    width: 100vw;
+    background-color: lightblue;
+  }
+
+  .bird {
+    height: 10%;
+    width: 15%;
+    position: fixed;
+    background-color: lightcoral;
+    top: 40vh;
+    left: 30vw;
+    z-index: 100;
+    border-radius: 50%;
+  }
+
+  .button {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30vw;
+    height: 10vh;
+    color: white;
+    background-color: rgb(206, 83, 83);
+    border-radius: 10px;
+    text-transform: uppercase;
+    font-size: 150%;
+  }
+
+  .pipe_sprite {
+    position: fixed;
+    top: 40vh;
+    left: 100vw;
+    height: 70vh;
+    width: 6vw;
+    background-color: green;
+  }
+
+  .score {
+    position: fixed;
+    z-index: 10;
+    height: 10vh;
+    font-size: 10vh;
+    font-weight: 100;
+    color: rgb(255, 255, 255, 0.8);
+    top: 0;
+    left: 0;
+  }
+}
