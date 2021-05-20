@@ -21,6 +21,7 @@ background_rect = background.getBoundingClientRect();
 
 let gravity = 7.6;
 let birdTop;
+let fired = false;
 
 function applyGravity() {
   birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
@@ -30,5 +31,19 @@ function applyGravity() {
 setInterval(applyGravity, 20);
 
 //if space is pressed, gravity isn't allowed to operate
+document.addEventListener("keydown", () => {
+  if (!fired) {
+    fly();
+    fired = true;
+  }
+});
+document.addEventListener("keyup", () => {
+  fired = false;
+});
+
+function fly() {
+  birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  bird.style.top = birdTop - gravity * 10 + "px";
+}
 
 //console.log(window.getComputedStyle(bird).getPropertyValue("top"));
