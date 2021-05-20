@@ -11,6 +11,24 @@
 //MAKE COLLISION LOGIC
 //INCREASE SCORE WITH SUCCESS AT DODGING.
 //RESET ALL VALUES IF DEATH.
+//NOTE: PIXEL VALUES OPERATE AT 0,0 FROM THE TOP LEFT OF THE DISPLAY, SO AS BIRD FALLS, PIXEL POSITION INCREASES
 
 bird = document.querySelector(".bird");
 background = document.querySelector(".background");
+
+bird_rect = bird.getBoundingClientRect();
+background_rect = background.getBoundingClientRect();
+
+let gravity = 7.6;
+let birdTop;
+
+function applyGravity() {
+  birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  bird.style.top = birdTop + gravity / 2 + "px";
+}
+
+setInterval(applyGravity, 20);
+
+//if space is pressed, gravity isn't allowed to operate
+
+//console.log(window.getComputedStyle(bird).getPropertyValue("top"));
