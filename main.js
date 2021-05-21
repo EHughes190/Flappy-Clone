@@ -14,13 +14,16 @@
 //NOTE: PIXEL VALUES OPERATE AT 0,0 FROM THE TOP LEFT OF THE DISPLAY, SO AS BIRD FALLS, PIXEL POSITION INCREASES
 
 //DIFFIULTY? DECREASE GAP SIZE OVER TIME? RANDOM GAP SIZE IN A RANGE?
+//Rainbow colours of pipes
+//Different character choices
+//Particle effects
 
 const bird = document.querySelector(".bird");
 const score = document.querySelector(".score");
 const gameContainer = document.querySelector(".game-container");
 const startButton = document.querySelector(".button");
 
-let gravity = 3;
+let gravity = 5;
 let pipeGapX = 0;
 let birdTop;
 let birdBot;
@@ -32,7 +35,6 @@ startButton.addEventListener("click", startGame);
 function startGame() {
   startButton.style.display = "none";
 
-  gameContainer_rect = gameContainer.getBoundingClientRect();
   function applyGravity() {
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     birdBot = parseInt(
@@ -44,7 +46,7 @@ function startGame() {
     }
 
     if (birdBot <= 0) {
-      gameOver();
+      setTimeout(gameOver, 1);
     }
     requestAnimationFrame(applyGravity);
   }
@@ -76,15 +78,17 @@ function startGame() {
         jumpCount = 0;
       }
       jumpCount++;
-    });
+    }, 10);
   }
 
   function generatePipe() {
     if (pipeGapX > 100) {
       pipeGapX = 0;
       let pipeLeft = 110;
-      let pipeHole = 10;
+      let pipeHole = 30;
+      //Math.random() * (max - min) + min; gives a number within the bounds we set as max and min
       let randomHeight = Math.random() * (60 - 90) + 90;
+
       //Creating pipe on ground
       const pipe = document.createElement("div");
       pipe.style.top = randomHeight + "vh";
@@ -95,10 +99,11 @@ function startGame() {
       //Creating pipe on ceiling
       const pipe_inverse = document.createElement("div");
       pipe_inverse.classList.add("pipe");
-      pipe_inverse.style.top = randomHeight + pipeHole - 100 + "vh";
+      pipe_inverse.style.top = randomHeight - pipeHole - 70 + "vh";
       gameContainer.appendChild(pipe_inverse);
       pipe_inverse.style.left = pipeLeft + "vw";
 
+      //MOVE PIPES FROM RIGHT TO LEFT, DESPAWNING THEM IF OUT OF CONTAINER
       function movePipe() {
         pipeLeft -= 2;
         pipe.style.left = pipeLeft + "vw";
@@ -106,23 +111,32 @@ function startGame() {
 
         if (pipe.style.left <= -10 + "vw") {
           pipe.remove();
-        }
-
-        if (pipe_inverse.style.left <= -10 + "vw") {
           pipe_inverse.remove();
+        } else {
+          //COLLISION LOGIC
+          let pipe_rect = pipe.getBoundingClientRect();
+          let pipe_inverse_rect = pipe_inverse.getBoundingClientRect();
+          bird_rect = bird.getBoundingClientRect();
+          console.log(pipe_rect);
+          // if (
+          //   (bird_rect.bottom >= pipe_rect.top &&
+          //     bird_rect.right >= pipe_rect.left) ||
+          //   (bird_rect.top <= pipe_inverse_rect.bottom &&
+          //     bird_rect.right <= pipe_inverse_rect.left)
+          // ) {
+          //   alert("Game over");
+          // }
         }
       }
       setInterval(movePipe, 40);
     }
+
     pipeGapX++;
     requestAnimationFrame(generatePipe);
   }
-
-  //setInterval(generatePipe, 1500);
-  //generatePipe(1500);
   generatePipe();
 }
 
 function gameOver() {
-  alert("GAME over");
+  alert("GAME OVER");
 }
