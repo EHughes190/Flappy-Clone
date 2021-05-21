@@ -15,7 +15,7 @@
 
 const bird = document.querySelector(".bird");
 const score = document.querySelector(".score");
-const body = document.querySelector("body");
+const gameContainer = document.querySelector(".game-container");
 const startButton = document.querySelector(".button");
 
 let gravity = 3;
@@ -30,12 +30,12 @@ function startGame() {
   startButton.style.display = "none";
 
   function applyGravity() {
-    const bird_rect = bird.getBoundingClientRect();
+    //const bird_rect = bird.getBoundingClientRect();
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-    birdBot = parseInt(
-      window.getComputedStyle(bird).getPropertyValue("bottom")
-    );
-    console.log(bird_rect);
+    //birdBot = parseInt(
+    //  window.getComputedStyle(bird).getPropertyValue("bottom")
+    //);
+    //console.log(bird_rect);
     //if jumping is pressed, gravity isn't allowed to operate
     if (!isJumping) {
       bird.style.top = birdTop + gravity + "px";
@@ -67,11 +67,22 @@ function startGame() {
   }
 
   function generatePipe() {
+    let pipeLeft = 110;
     const pipe = document.createElement("div");
     pipe.classList.add("pipe");
-    body.append(pipe);
-    const pipe_inverse = document.createElement("div");
+    gameContainer.appendChild(pipe);
+    pipe.style.left = pipeLeft + "vw";
+
+    function movePipe() {
+      pipeLeft -= 2;
+      pipe.style.left = pipeLeft + "vw";
+
+      if (pipe.style.left <= -10 + "vw") {
+        pipe.remove();
+      }
+    }
+    setInterval(movePipe, 40);
   }
 
-  generatePipe();
+  setInterval(generatePipe, 1500);
 }
