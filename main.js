@@ -13,6 +13,8 @@
 //RESET ALL VALUES IF DEATH.
 //NOTE: PIXEL VALUES OPERATE AT 0,0 FROM THE TOP LEFT OF THE DISPLAY, SO AS BIRD FALLS, PIXEL POSITION INCREASES
 
+//DIFFIULTY? DECREASE GAP SIZE OVER TIME? RANDOM GAP SIZE IN A RANGE?
+
 const bird = document.querySelector(".bird");
 const score = document.querySelector(".score");
 const gameContainer = document.querySelector(".game-container");
@@ -30,6 +32,7 @@ startButton.addEventListener("click", startGame);
 function startGame() {
   startButton.style.display = "none";
 
+  gameContainer_rect = gameContainer.getBoundingClientRect();
   function applyGravity() {
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     birdBot = parseInt(
@@ -38,6 +41,10 @@ function startGame() {
     //if jumping is pressed, gravity isn't allowed to operate
     if (jumping === 0) {
       bird.style.top = birdTop + gravity * 1.2 + "px";
+    }
+
+    if (birdBot <= 0) {
+      gameOver();
     }
     requestAnimationFrame(applyGravity);
   }
@@ -61,7 +68,7 @@ function startGame() {
     let jumpInterval = setInterval(function () {
       birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
       if (birdTop >= 90 && jumpCount < 15) {
-        bird.style.top = birdTop - 5 + "px";
+        bird.style.top = birdTop - gravity + "px";
       }
       if (jumpCount > 20) {
         clearInterval(jumpInterval);
@@ -76,19 +83,33 @@ function startGame() {
     if (pipeGapX > 100) {
       pipeGapX = 0;
       let pipeLeft = 110;
-      let randomHeight = Math.random() * 100;
+      let pipeHole = 10;
+      let randomHeight = Math.random() * (60 - 90) + 90;
+      //Creating pipe on ground
       const pipe = document.createElement("div");
-      pipe.style.top = -50 + "vh";
+      pipe.style.top = randomHeight + "vh";
       pipe.classList.add("pipe");
       gameContainer.appendChild(pipe);
       pipe.style.left = pipeLeft + "vw";
 
+      //Creating pipe on ceiling
+      const pipe_inverse = document.createElement("div");
+      pipe_inverse.classList.add("pipe");
+      pipe_inverse.style.top = randomHeight + pipeHole - 100 + "vh";
+      gameContainer.appendChild(pipe_inverse);
+      pipe_inverse.style.left = pipeLeft + "vw";
+
       function movePipe() {
         pipeLeft -= 2;
         pipe.style.left = pipeLeft + "vw";
+        pipe_inverse.style.left = pipeLeft + "vw";
 
         if (pipe.style.left <= -10 + "vw") {
           pipe.remove();
+        }
+
+        if (pipe_inverse.style.left <= -10 + "vw") {
+          pipe_inverse.remove();
         }
       }
       setInterval(movePipe, 40);
@@ -100,4 +121,8 @@ function startGame() {
   //setInterval(generatePipe, 1500);
   //generatePipe(1500);
   generatePipe();
+}
+
+function gameOver() {
+  alert("GAME over");
 }
