@@ -19,10 +19,11 @@ const gameContainer = document.querySelector(".game-container");
 const startButton = document.querySelector(".button");
 
 let gravity = 3;
+let pipeGapX = 0;
 let birdTop;
 let birdBot;
 let fired = false;
-let isJumping = false;
+let jumping = 0;
 
 startButton.addEventListener("click", startGame);
 
@@ -30,19 +31,18 @@ function startGame() {
   startButton.style.display = "none";
 
   function applyGravity() {
-    //const bird_rect = bird.getBoundingClientRect();
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-    //birdBot = parseInt(
-    //  window.getComputedStyle(bird).getPropertyValue("bottom")
-    //);
-    //console.log(bird_rect);
+    birdBot = parseInt(
+      window.getComputedStyle(bird).getPropertyValue("bottom")
+    );
     //if jumping is pressed, gravity isn't allowed to operate
-    if (!isJumping) {
-      bird.style.top = birdTop + gravity + "px";
+    if (jumping === 0) {
+      bird.style.top = birdTop + gravity * 1.2 + "px";
     }
+    requestAnimationFrame(applyGravity);
   }
 
-  setInterval(applyGravity, 20);
+  applyGravity();
 
   document.addEventListener("keydown", () => {
     if (!fired) {
@@ -56,33 +56,48 @@ function startGame() {
   });
 
   function fly() {
-    isJumping = true;
-    birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-    if (birdTop <= 90) {
-      bird.style.top = birdTop;
-    } else {
-      bird.style.top = birdTop - gravity * 15 + "px";
-    }
-    isJumping = false;
+    jumping = 1;
+    let jumpCount = 0;
+    let jumpInterval = setInterval(function () {
+      birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+      if (birdTop >= 90 && jumpCount < 15) {
+        bird.style.top = birdTop - 5 + "px";
+      }
+      if (jumpCount > 20) {
+        clearInterval(jumpInterval);
+        jumping = 0;
+        jumpCount = 0;
+      }
+      jumpCount++;
+    });
   }
 
   function generatePipe() {
-    let pipeLeft = 110;
-    const pipe = document.createElement("div");
-    pipe.classList.add("pipe");
-    gameContainer.appendChild(pipe);
-    pipe.style.left = pipeLeft + "vw";
-
-    function movePipe() {
-      pipeLeft -= 2;
+    if (pipeGapX > 100) {
+      pipeGapX = 0;
+      let pipeLeft = 110;
+      let randomHeight = Math.random() * 100;
+      const pipe = document.createElement("div");
+      pipe.style.top = -50 + "vh";
+      pipe.classList.add("pipe");
+      gameContainer.appendChild(pipe);
       pipe.style.left = pipeLeft + "vw";
 
-      if (pipe.style.left <= -10 + "vw") {
-        pipe.remove();
+      function movePipe() {
+        pipeLeft -= 2;
+        pipe.style.left = pipeLeft + "vw";
+
+        if (pipe.style.left <= -10 + "vw") {
+          pipe.remove();
+        }
       }
+      setInterval(movePipe, 40);
     }
-    setInterval(movePipe, 40);
+    pipeGapX++;
+    requestAnimationFrame(generatePipe);
   }
 
-  setInterval(generatePipe, 1500);
+  //setInterval(generatePipe, 1500);
+  //generatePipe(1500);
+  generatePipe();
 }
