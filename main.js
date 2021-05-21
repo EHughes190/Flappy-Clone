@@ -13,12 +13,10 @@
 //RESET ALL VALUES IF DEATH.
 //NOTE: PIXEL VALUES OPERATE AT 0,0 FROM THE TOP LEFT OF THE DISPLAY, SO AS BIRD FALLS, PIXEL POSITION INCREASES
 
-bird = document.querySelector(".bird");
-background = document.querySelector(".background");
-score = document.querySelector(".score");
-
-bird_rect = bird.getBoundingClientRect();
-background_rect = background.getBoundingClientRect();
+const bird = document.querySelector(".bird");
+const score = document.querySelector(".score");
+const body = document.querySelector("body");
+const startButton = document.querySelector(".button");
 
 let gravity = 3;
 let birdTop;
@@ -26,36 +24,54 @@ let birdBot;
 let fired = false;
 let isJumping = false;
 
-function applyGravity() {
-  birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  birdBot = parseInt(window.getComputedStyle(bird).getPropertyValue("bottom"));
-  //if jumping is pressed, gravity isn't allowed to operate
-  if (!isJumping) {
-    bird.style.top = birdTop + gravity + "px";
+startButton.addEventListener("click", startGame);
+
+function startGame() {
+  startButton.style.display = "none";
+
+  function applyGravity() {
+    const bird_rect = bird.getBoundingClientRect();
+    birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+    birdBot = parseInt(
+      window.getComputedStyle(bird).getPropertyValue("bottom")
+    );
+    console.log(bird_rect);
+    //if jumping is pressed, gravity isn't allowed to operate
+    if (!isJumping) {
+      bird.style.top = birdTop + gravity + "px";
+    }
   }
-}
 
-setInterval(applyGravity, 20);
+  setInterval(applyGravity, 20);
 
-document.addEventListener("keydown", () => {
-  if (!fired) {
-    fly();
-    fired = true;
+  document.addEventListener("keydown", () => {
+    if (!fired) {
+      fly();
+      fired = true;
+    }
+  });
+
+  document.addEventListener("keyup", () => {
+    fired = false;
+  });
+
+  function fly() {
+    isJumping = true;
+    birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+    if (birdTop <= 90) {
+      bird.style.top = birdTop;
+    } else {
+      bird.style.top = birdTop - gravity * 15 + "px";
+    }
+    isJumping = false;
   }
-});
 
-document.addEventListener("keyup", () => {
-  fired = false;
-});
-
-function fly() {
-  isJumping = true;
-  birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  if (birdTop <= 90) {
-    bird.style.top = birdTop;
-  } else {
-    bird.style.top = birdTop - gravity * 15 + "px";
+  function generatePipe() {
+    const pipe = document.createElement("div");
+    pipe.classList.add("pipe");
+    body.append(pipe);
+    const pipe_inverse = document.createElement("div");
   }
-  isJumping = false;
-  console.log();
+
+  generatePipe();
 }
