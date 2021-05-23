@@ -97,43 +97,37 @@ function startGame() {
       pipe.style.left = pipeLeft + "vw";
 
       //Creating pipe on ceiling
-      // const pipe_inverse = document.createElement("div");
-      // pipe_inverse.classList.add("pipe");
-      // pipe_inverse.style.top = randomHeight - pipeHole - 70 + "vh";
-      // gameContainer.appendChild(pipe_inverse);
-      // pipe_inverse.style.left = pipeLeft + "vw";
+      const pipe_inverse = document.createElement("div");
+      pipe_inverse.classList.add("pipe");
+      pipe_inverse.style.top = randomHeight - pipeHole - 70 + "vh";
+      gameContainer.appendChild(pipe_inverse);
+      pipe_inverse.style.left = pipeLeft + "vw";
 
       //MOVE PIPES FROM RIGHT TO LEFT, DESPAWNING THEM IF OUT OF CONTAINER
       function movePipe() {
         pipeLeft -= 2;
         pipe.style.left = pipeLeft + "vw";
-        //pipe_inverse.style.left = pipeLeft + "vw";
+        pipe_inverse.style.left = pipeLeft + "vw";
 
         if (pipe.style.left <= -10 + "vw") {
           pipe.remove();
-          //pipe_inverse.remove();
+          pipe_inverse.remove();
         } else {
           //COLLISION LOGIC
           let pipe_rect = pipe.getBoundingClientRect();
-          //let pipe_inverse_rect = pipe_inverse.getBoundingClientRect();
+          let pipe_inverse_rect = pipe_inverse.getBoundingClientRect();
           bird_rect = bird.getBoundingClientRect();
+
           if (
-            bird_rect.bottom >= pipe_rect.top &&
-            bird_rect.right >= pipe_rect.left
-            // (bird_rect.top <= pipe_inverse_rect.bottom &&
-            //   bird_rect.right >= pipe_inverse_rect.left)
+            bird_rect.left <= pipe_rect.right &&
+            bird_rect.right > pipe_rect.left &&
+            bird_rect.top <= pipe_rect.bottom &&
+            bird_rect.bottom >= pipe_rect.top
           ) {
             alert("Game over");
           }
 
-          // bird_rect.left < pipe_sprite_props.left +
-          // pipe_sprite_props.width &&
-          // bird_rect.left +
-          // bird_rect.width > pipe_sprite_props.left &&
-          // bird_rect.top < pipe_sprite_props.top +
-          // pipe_sprite_props.height &&
-          // bird_rect.top +
-          // bird_rect.height > pipe_sprite_props.top
+          //
         }
       }
       setInterval(movePipe, 40);
