@@ -14,10 +14,11 @@ body .game-container {
   height: 100vh;
   width: 100vw;
   background-color: lightblue;
+  position: fixed;
 }
 body .game-container .bird {
-  height: 5%;
-  width: 8%;
+  height: 5vh;
+  width: 8vw;
   position: fixed;
   background-color: lightcoral;
   top: 40vh;
@@ -38,12 +39,30 @@ body .game-container .button {
   font-size: 150%;
 }
 body .game-container .pipe {
-  position: fixed;
-  top: 40vh;
-  left: 90vw;
-  height: 70vh;
+  position: relative;
+  height: 100vh;
   width: 6vw;
+  left: 100vw;
   background-color: green;
+}
+body .game-container .hole {
+  position: relative;
+  height: 30vh;
+  width: 6vw;
+  left: 100vw;
+  background-color: lightblue;
+  top: -60vh;
+}
+body .game-container .animated {
+  animation: pipe 2s infinite linear;
+}
+@keyframes pipe {
+  0% {
+    left: 100vw;
+  }
+  100% {
+    left: -6vw;
+  }
 }
 body .game-container .score {
   position: fixed;
