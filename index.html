@@ -10,13 +10,27 @@
   <body>
     <div class="game-container">
       <div class="bird"></div>
-
+      <div class="heading">
+        <h4 class="heading__sub">Welcome to</h4>
+        <h2 class="heading__main">Flappy Clone</h2>
+      </div>
       <button class="button">Start</button>
       <div class="pipe"></div>
       <div class="hole"></div>
       <div class="score">
-        <span class="score_title">Score:</span>
-        <span class="score_text">3</span>
+        <span class="score__title">Score:</span>
+        <span class="score__text"></span>
+      </div>
+    </div>
+
+    <div class="modal-bg">
+      <div class="modal">
+        <h2>Game Over</h2>
+        <h2>
+          Score:
+          <span id="final-score"></span>
+        </h2>
+        <button class="button menu-btn">Menu</button>
       </div>
     </div>
 

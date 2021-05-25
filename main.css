@@ -16,6 +16,24 @@ body .game-container {
   background-color: lightblue;
   position: fixed;
 }
+body .game-container .heading {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  height: 30vh;
+  width: 100vw;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+body .game-container .heading .heading__sub {
+  font-size: 1.5em;
+}
+body .game-container .heading .heading__main {
+  font-size: 3em;
+}
 body .game-container .bird {
   height: 5vh;
   width: 8vw;
@@ -73,4 +91,36 @@ body .game-container .score {
   color: rgba(255, 255, 255, 0.8);
   top: 0;
   left: 0;
+  visibility: hidden;
+}
+body .game-container .visible {
+  visibility: visible;
+}
+body .modal-bg {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s;
+}
+body .modal-bg .modal {
+  position: relative;
+  background-color: lightcoral;
+  width: 50%;
+  height: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+body .bg-active {
+  visibility: visible;
+  opacity: 1;
 }
