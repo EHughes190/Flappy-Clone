@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+:root {
+  --pixel-size: 6;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -76,7 +80,7 @@ body .game-container .animated {
 }
 @keyframes pipe {
   0% {
-    left: 100vw;
+    left: 112vw;
   }
   100% {
     left: -6vw;
