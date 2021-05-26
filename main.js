@@ -31,12 +31,10 @@ const pipe = document.querySelector(".pipe");
 const modalBg = document.querySelector(".modal-bg");
 
 let gravity = 5;
-let pipeGapX = 0;
-let birdTop;
-let birdBot;
+// let pipeGapX = 0;
 let fired = false;
 let jumping = 0;
-let executed = false;
+// let executed = false;
 let score = 0;
 let gameOver = false;
 let gravityAnim;
@@ -45,6 +43,51 @@ const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 startButton.addEventListener("click", startGame);
 
 menuButton.addEventListener("click", reset);
+
+function updateScore() {
+  score = score + 1;
+  scoreText.textContent = score;
+}
+
+function startGame() {
+  scoreDiv.classList.add("visible");
+  startButton.style.display = "none";
+  heading.style.display = "none";
+  //scoreText.textContent = score;
+  hole.classList.add("animated");
+  pipe.classList.add("animated");
+  let numberOfEL = 0;
+
+  hole.addEventListener("animationiteration", () => {
+    if (!gameOver) {
+      setPipeGapHeight();
+      updateScore();
+      console.log(score);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    console.log(e.key);
+    if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
+      fly();
+      fired = true;
+    }
+  });
+
+  document.addEventListener("keyup", () => {
+    fired = false;
+  });
+
+  if (!gameOver) {
+    applyGravity();
+    checkCollisions();
+  }
+}
+
+function setPipeGapHeight() {
+  let randomHeight = -(Math.random() * (100 - 50) + 30);
+  hole.style.top = randomHeight + "vh";
+}
 
 function reset() {
   modalBg.classList.remove("bg-active");
@@ -55,47 +98,17 @@ function reset() {
   scoreDiv.classList.remove("visible");
   gameOver = false;
   bird.style.top = birdPos;
-  score = 0;
 }
 
 function endGame() {
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
   gameOver = true;
-  finalScore.innerHTML = scoreText.innerHTML;
   score = 0;
-}
-
-function startGame() {
-  scoreDiv.classList.add("visible");
-  startButton.style.display = "none";
-  heading.style.display = "none";
-  scoreText.innerHTML = score;
-  hole.classList.add("animated");
-  pipe.classList.add("animated");
-
-  hole.addEventListener("animationiteration", () => {
-    if (!gameOver) {
-      let randomHeight = -(Math.random() * (100 - 50) + 30);
-      hole.style.top = randomHeight + "vh";
-      score++;
-      scoreText.innerHTML = score;
-    }
-  });
-
-  document.addEventListener("keydown", () => {
-    if (!fired) {
-      fly();
-      fired = true;
-    }
-  });
-
-  document.addEventListener("keyup", () => {
-    fired = false;
-  });
-
-  applyGravity();
-  checkCollisions();
+  hole.removeEventListener("animationiteration");
+  document.removeEventListener("keydown");
+  document.removeEventListener("keyup");
+  //finalScore.innerHTML = scoreText.textContent;
 }
 
 function fly() {
@@ -103,10 +116,10 @@ function fly() {
   let jumpCount = 0;
   let jumpInterval = setInterval(function () {
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-    if (birdTop >= 90 && jumpCount < 17) {
+    if (birdTop >= 90 && jumpCount < 20) {
       bird.style.top = birdTop - gravity + "px";
     }
-    if (jumpCount > 20) {
+    if (jumpCount > 25) {
       clearInterval(jumpInterval);
       jumping = 0;
       jumpCount = 0;
@@ -116,27 +129,24 @@ function fly() {
 }
 
 function applyGravity() {
-  if (!gameOver) {
-    let birdTop = parseInt(
-      window.getComputedStyle(bird).getPropertyValue("top")
-    );
-    let birdBot = parseInt(
-      window.getComputedStyle(bird).getPropertyValue("bottom")
-    );
-    //if jumping is pressed, gravity isn't allowed to operate
-    if (jumping === 0) {
-      bird.style.top = birdTop + gravity * 1.2 + "px";
-    }
-
-    if (birdBot <= 0) {
-      endGame();
-    }
-
-    gravityAnim = requestAnimationFrame(applyGravity);
+  let birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+  let birdBot = parseInt(
+    window.getComputedStyle(bird).getPropertyValue("bottom")
+  );
+  //if jumping is pressed, gravity isn't allowed to operate
+  if (jumping === 0) {
+    bird.style.top = birdTop + gravity * 1.2 + "px";
   }
+
+  if (birdBot <= 0) {
+    endGame();
+  }
+
+  gravityAnim = requestAnimationFrame(applyGravity);
 }
 
 function checkCollisions() {
+  let birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
   let holeRect = hole.getBoundingClientRect();
   let pipeRect = pipe.getBoundingClientRect();
   let birdRect = bird.getBoundingClientRect();
@@ -155,6 +165,14 @@ function checkCollisions() {
   ) {
     endGame();
   }
+
+  // if (
+  //   !gameOver &&
+  //   pipeRect.right < birdRect.right &&
+  //   pipeRect.right > birdRect.left
+  // ) {
+  //   updateScore();
+  // }
   requestAnimationFrame(checkCollisions);
 }
 

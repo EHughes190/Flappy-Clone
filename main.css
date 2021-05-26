@@ -36,7 +36,7 @@ body .game-container .heading .heading__main {
 }
 body .game-container .bird {
   height: 5vh;
-  width: 8vw;
+  width: 6vw;
   position: fixed;
   background-color: lightcoral;
   top: 40vh;
@@ -119,10 +119,11 @@ body .modal-bg .modal {
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
+  border-radius: 5%;
 }
 body .modal-bg .modal .menu-btn {
   width: 50%;
-  height: 20%;
+  height: 30%;
   color: white;
   background-color: #ce5353;
   border-radius: 10px;

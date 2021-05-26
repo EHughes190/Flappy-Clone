@@ -42,7 +42,7 @@ body {
 
     .bird {
       height: 5vh;
-      width: 8vw;
+      width: 6vw;
       position: fixed;
       background-color: lightcoral;
       top: 40vh;
@@ -135,10 +135,11 @@ body {
       justify-content: space-around;
       align-items: center;
       flex-direction: column;
+      border-radius: 5%;
 
       .menu-btn {
         width: 50%;
-        height: 20%;
+        height: 30%;
         color: white;
         background-color: rgb(206, 83, 83);
         border-radius: 10px;
