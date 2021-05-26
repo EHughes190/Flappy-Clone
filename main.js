@@ -40,6 +40,7 @@ let executed = false;
 let score = 0;
 let gameOver = false;
 let gravityAnim;
+const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 
 startButton.addEventListener("click", startGame);
 
@@ -49,10 +50,12 @@ function reset() {
   modalBg.classList.remove("bg-active");
   hole.classList.remove("animated");
   pipe.classList.remove("animated");
-  startButton.style.display = "unset";
-  heading.style.display = "unset";
+  startButton.style.display = "initial";
+  heading.style.display = "initial";
   scoreDiv.classList.remove("visible");
   gameOver = false;
+  bird.style.top = birdPos;
+  score = 0;
 }
 
 function endGame() {
@@ -60,8 +63,7 @@ function endGame() {
   cancelAnimationFrame(gravityAnim);
   gameOver = true;
   finalScore.innerHTML = scoreText.innerHTML;
-  //pipe.style.webkitAnimationPlayState = "paused";
-  //hole.style.webkitAnimationPlayState = "paused";
+  score = 0;
 }
 
 function startGame() {
@@ -81,9 +83,6 @@ function startGame() {
     }
   });
 
-  applyGravity();
-  checkCollisions();
-
   document.addEventListener("keydown", () => {
     if (!fired) {
       fly();
@@ -94,6 +93,9 @@ function startGame() {
   document.addEventListener("keyup", () => {
     fired = false;
   });
+
+  applyGravity();
+  checkCollisions();
 }
 
 function fly() {
@@ -114,20 +116,24 @@ function fly() {
 }
 
 function applyGravity() {
-  let birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  let birdBot = parseInt(
-    window.getComputedStyle(bird).getPropertyValue("bottom")
-  );
-  //if jumping is pressed, gravity isn't allowed to operate
-  if (jumping === 0) {
-    bird.style.top = birdTop + gravity * 1.2 + "px";
-  }
+  if (!gameOver) {
+    let birdTop = parseInt(
+      window.getComputedStyle(bird).getPropertyValue("top")
+    );
+    let birdBot = parseInt(
+      window.getComputedStyle(bird).getPropertyValue("bottom")
+    );
+    //if jumping is pressed, gravity isn't allowed to operate
+    if (jumping === 0) {
+      bird.style.top = birdTop + gravity * 1.2 + "px";
+    }
 
-  if (birdBot <= 0) {
-    endGame();
-  }
+    if (birdBot <= 0) {
+      endGame();
+    }
 
-  gravityAnim = requestAnimationFrame(applyGravity);
+    gravityAnim = requestAnimationFrame(applyGravity);
+  }
 }
 
 function checkCollisions() {
