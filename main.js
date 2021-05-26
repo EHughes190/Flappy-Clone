@@ -37,6 +37,7 @@ let jumping = 0;
 // let executed = false;
 let score = 0;
 let gameOver = false;
+let isPlaying = false;
 let gravityAnim;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 
@@ -44,44 +45,50 @@ startButton.addEventListener("click", startGame);
 
 menuButton.addEventListener("click", reset);
 
-function updateScore() {
-  score = score + 1;
-  scoreText.textContent = score;
-}
+hole.addEventListener("animationiteration", () => {
+  if (!gameOver) {
+    updateScore();
+    setPipeGapHeight();
+  }
+});
 
+document.addEventListener("keydown", (e) => {
+  if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
+    fly();
+    fired = true;
+  }
+});
+
+document.addEventListener("click", () => {
+  if (isPlaying && !gameOver) {
+    fly();
+  }
+});
+
+document.addEventListener("keyup", () => {
+  fired = false;
+});
 function startGame() {
+  isPlaying = true;
+  score = -1;
   scoreDiv.classList.add("visible");
   startButton.style.display = "none";
   heading.style.display = "none";
-  //scoreText.textContent = score;
+  scoreText.textContent = 0;
   hole.classList.add("animated");
   pipe.classList.add("animated");
-  let numberOfEL = 0;
-
-  hole.addEventListener("animationiteration", () => {
-    if (!gameOver) {
-      setPipeGapHeight();
-      updateScore();
-      console.log(score);
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    console.log(e.key);
-    if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
-      fly();
-      fired = true;
-    }
-  });
-
-  document.addEventListener("keyup", () => {
-    fired = false;
-  });
 
   if (!gameOver) {
     applyGravity();
     checkCollisions();
+    setPipeGapHeight();
+    updateScore();
   }
+}
+
+function updateScore() {
+  score++;
+  scoreText.textContent = score;
 }
 
 function setPipeGapHeight() {
@@ -104,11 +111,9 @@ function endGame() {
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
   gameOver = true;
+  isPlaying = false;
   score = 0;
-  hole.removeEventListener("animationiteration");
-  document.removeEventListener("keydown");
-  document.removeEventListener("keyup");
-  //finalScore.innerHTML = scoreText.textContent;
+  finalScore.innerHTML = scoreText.textContent;
 }
 
 function fly() {

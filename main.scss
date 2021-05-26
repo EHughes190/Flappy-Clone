@@ -42,7 +42,7 @@ body {
 
     .bird {
       height: 5vh;
-      width: 6vw;
+      width: 8vw;
       position: fixed;
       background-color: lightcoral;
       top: 40vh;
@@ -88,7 +88,7 @@ body {
 
     @keyframes pipe {
       0% {
-        left: 100vw;
+        left: 112vw;
       }
       100% {
         left: -6vw;
