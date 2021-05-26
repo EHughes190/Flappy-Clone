@@ -121,7 +121,7 @@ function fly() {
   let jumpCount = 0;
   let jumpInterval = setInterval(function () {
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-    if (birdTop >= 90 && jumpCount < 23) {
+    if (birdTop >= 90 && jumpCount < 20) {
       bird.style.top = birdTop - gravity + "px";
     }
     if (jumpCount > 25) {
