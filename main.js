@@ -135,22 +135,19 @@ function fly() {
 
 function applyGravity() {
   let birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
-  let birdBot = parseInt(
-    window.getComputedStyle(bird).getPropertyValue("bottom")
-  );
+
   //if jumping is pressed, gravity isn't allowed to operate
   if (jumping === 0) {
     bird.style.top = birdTop + gravity * 1.2 + "px";
-  }
-
-  if (birdBot <= 0) {
-    endGame();
   }
 
   gravityAnim = requestAnimationFrame(applyGravity);
 }
 
 function checkCollisions() {
+  let birdBot = parseInt(
+    window.getComputedStyle(bird).getPropertyValue("bottom")
+  );
   let birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
   let holeRect = hole.getBoundingClientRect();
   let pipeRect = pipe.getBoundingClientRect();
@@ -163,10 +160,11 @@ function checkCollisions() {
   );
 
   if (
-    birdRect.left < pipeRect.right &&
-    birdRect.right > pipeRect.left &&
-    (birdTop < holeRect.top ||
-      birdTop > holeRect.top + (holeHeight - birdHeight))
+    birdBot <= 0 ||
+    (birdRect.left < pipeRect.right &&
+      birdRect.right > pipeRect.left &&
+      (birdTop < holeRect.top ||
+        birdTop > holeRect.top + (holeHeight - birdHeight)))
   ) {
     endGame();
   }
