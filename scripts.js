@@ -18,11 +18,6 @@
 //Different character choices
 //Particle effects
 
-const whoosh = new Howl({
-  src: "/sounds/whoosh.mp3",
-  volume: 0.2,
-});
-
 const bird = document.querySelector(".bird");
 const scoreDiv = document.querySelector(".score");
 const scoreText = document.querySelector(".score__text");
@@ -35,16 +30,18 @@ const hole = document.querySelector(".hole");
 const pipe = document.querySelector(".pipe");
 const modalBg = document.querySelector(".modal-bg");
 
-let gravity = 5;
-// let pipeGapX = 0;
 let fired = false;
-let jumping = 0;
-// let executed = false;
-let score = 0;
 let gameOver = false;
 let isPlaying = false;
+let gravity = 5;
+let jumping = 0;
+let score = 0;
 let gravityAnim;
+const whoosh = new Audio("./sounds/whoosh.mp3");
+whoosh.volume = 0.2;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
+// let executed = false;
+// let pipeGapX = 0;
 
 startButton.addEventListener("click", startGame);
 
@@ -59,16 +56,16 @@ hole.addEventListener("animationiteration", () => {
 
 document.addEventListener("keydown", (e) => {
   if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
-    fly();
     whoosh.play();
+    fly();
     fired = true;
   }
 });
 
 document.addEventListener("click", () => {
   if (isPlaying && !gameOver) {
-    fly();
     whoosh.play();
+    fly();
   }
 });
 
@@ -97,7 +94,6 @@ function startGame() {
 function updateScore() {
   score++;
   scoreText.innerHTML = score;
-  //ding.play();
 }
 
 function setPipeGapHeight() {
