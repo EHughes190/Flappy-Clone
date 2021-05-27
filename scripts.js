@@ -41,8 +41,9 @@ let isPlaying = false;
 let gravity = 5;
 let jumping = 0;
 let score = 0;
-let highscore;
+
 let gravityAnim;
+let highscore;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
@@ -86,6 +87,7 @@ function startGame() {
   scoreText.innerHTML = 0;
   hole.classList.add("animated");
   pipe.classList.add("animated");
+  highscore = parseInt(localStorage.getItem("highscore"));
 
   if (!gameOver) {
     applyGravity();
@@ -117,7 +119,6 @@ function reset() {
 }
 
 function updateHighScore() {
-  highscore = parseInt(localStorage.getItem("highscore"));
   if (highscore !== null) {
     if (score > highscore) {
       localStorage.setItem("highscore", score);
@@ -129,6 +130,7 @@ function updateHighScore() {
 
 function endGame() {
   updateHighScore();
+  console.log(typeof highscore);
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
   gameOver = true;
