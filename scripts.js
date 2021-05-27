@@ -88,7 +88,6 @@ function startGame() {
   scoreText.innerHTML = 0;
   hole.classList.add("animated");
   pipe.classList.add("animated");
-  highscore = localStorage.getItem("highscore");
 
   if (!gameOver) {
     applyGravity();
@@ -120,18 +119,19 @@ function reset() {
 }
 
 function updateHighScore() {
+  highscore = parseInt(sessionStorage.getItem("highscore"));
   if (highscore !== null) {
     if (score > highscore) {
-      localStorage.setItem("highscore", score);
+      sessionStorage.setItem("highscore", score);
     }
   } else {
-    localStorage.setItem("highscore", score);
+    sessionStorage.setItem("highscore", score);
   }
 }
 
 function endGame() {
   updateHighScore();
-  console.log(localStorage);
+  console.log(highscore);
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
   cancelAnimationFrame(collisionAnim);
