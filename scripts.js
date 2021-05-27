@@ -1,7 +1,3 @@
-//import { Howl } from "./node_modules/howler/dist/howler.js";
-
-//const { Howl, Howler } = require("howler");
-
 //FLAPPY BIRD
 //BIRD FALLS UNLESS TAPPING SCREEN/ PRESSING SPACE. BIRD FIXED IN X DIRECTION
 //IF BIRD HITS GROUND -> GAME OVER
@@ -35,11 +31,6 @@ const hole = document.querySelector(".hole");
 const pipe = document.querySelector(".pipe");
 const modalBg = document.querySelector(".modal-bg");
 
-// let whoosh = new Howl({
-//   src: ["./sounds/whoosh.mp3"],
-//   volume: 0.2,
-// });
-
 //VARIABLES
 let fired = false;
 let gameOver = false;
@@ -66,7 +57,6 @@ hole.addEventListener("animationiteration", () => {
 
 document.addEventListener("keydown", (e) => {
   if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
-    whoosh.play();
     fly();
     fired = true;
   }
@@ -74,7 +64,6 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("click", () => {
   if (isPlaying && !gameOver) {
-    whoosh.play();
     fly();
   }
 });
