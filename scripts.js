@@ -18,6 +18,11 @@
 //Different character choices
 //Particle effects
 
+const whoosh = new Howl({
+  src: "/sounds/whoosh.mp3",
+  volume: 0.2,
+});
+
 const bird = document.querySelector(".bird");
 const scoreDiv = document.querySelector(".score");
 const scoreText = document.querySelector(".score__text");
@@ -55,26 +60,29 @@ hole.addEventListener("animationiteration", () => {
 document.addEventListener("keydown", (e) => {
   if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
     fly();
+    whoosh.play();
     fired = true;
   }
 });
 
 document.addEventListener("click", () => {
-  if (isPlaying && !gameOver) {
+  if (!firstFlap && isPlaying && !gameOver) {
     fly();
+    whoosh.play();
   }
 });
 
 document.addEventListener("keyup", () => {
   fired = false;
 });
+
 function startGame() {
   isPlaying = true;
   score = -1;
   scoreDiv.classList.add("visible");
   startButton.style.display = "none";
   heading.style.display = "none";
-  scoreText.textContent = 0;
+  scoreText.innerHTML = 0;
   hole.classList.add("animated");
   pipe.classList.add("animated");
 
@@ -88,11 +96,12 @@ function startGame() {
 
 function updateScore() {
   score++;
-  scoreText.textContent = score;
+  scoreText.innerHTML = score;
+  //ding.play();
 }
 
 function setPipeGapHeight() {
-  let randomHeight = -(Math.random() * (100 - 50) + 30);
+  let randomHeight = -(Math.random() * (100 - 40) + 30);
   hole.style.top = randomHeight + "vh";
 }
 
@@ -113,9 +122,8 @@ function endGame() {
   gameOver = true;
   isPlaying = false;
   score = 0;
-  finalScore.innerHTML = scoreText.textContent;
+  finalScore.innerHTML = scoreText.innerHTML;
 }
-
 function fly() {
   jumping = 1;
   let jumpCount = 0;
@@ -168,14 +176,6 @@ function checkCollisions() {
   ) {
     endGame();
   }
-
-  // if (
-  //   !gameOver &&
-  //   pipeRect.right < birdRect.right &&
-  //   pipeRect.right > birdRect.left
-  // ) {
-  //   updateScore();
-  // }
   requestAnimationFrame(checkCollisions);
 }
 
