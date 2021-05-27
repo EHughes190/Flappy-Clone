@@ -56,7 +56,6 @@ hole.addEventListener("animationiteration", () => {
 
 document.addEventListener("keydown", (e) => {
   if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
-    whoosh.play();
     fly();
     fired = true;
   }
