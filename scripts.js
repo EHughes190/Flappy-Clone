@@ -35,10 +35,10 @@ const hole = document.querySelector(".hole");
 const pipe = document.querySelector(".pipe");
 const modalBg = document.querySelector(".modal-bg");
 
-let whoosh = new Howl({
-  src: ["./sounds/whoosh.mp3"],
-  volume: 0.2,
-});
+// let whoosh = new Howl({
+//   src: ["./sounds/whoosh.mp3"],
+//   volume: 0.2,
+// });
 
 //VARIABLES
 let fired = false;
