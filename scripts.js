@@ -37,8 +37,8 @@ let gravity = 5;
 let jumping = 0;
 let score = 0;
 let gravityAnim;
-const whoosh = new Audio("./sounds/whoosh.mp3");
-whoosh.volume = 0.2;
+//const whoosh = new Audio("./sounds/whoosh.mp3");
+//whoosh.volume = 0.2;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
@@ -64,7 +64,6 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("click", () => {
   if (isPlaying && !gameOver) {
-    whoosh.play();
     fly();
   }
 });
@@ -127,6 +126,7 @@ function fly() {
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     if (birdTop >= 90 && jumpCount < 20) {
       bird.style.top = birdTop - gravity + "px";
+      //whoosh.play();
     }
     if (jumpCount > 25) {
       clearInterval(jumpInterval);
