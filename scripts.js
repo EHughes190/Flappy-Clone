@@ -15,14 +15,17 @@
 
 //DIFFIULTY? DECREASE GAP SIZE OVER TIME? RANDOM GAP SIZE IN A RANGE?
 //Rainbow colours of pipes
+//sound
 //Different character choices
 //Particle effects
+//session storage
 
 //SELECTORS
 const bird = document.querySelector(".bird");
 const scoreDiv = document.querySelector(".score");
 const scoreText = document.querySelector(".score__text");
 const finalScore = document.getElementById("final-score");
+const highScore = document.getElementById("highscore");
 const gameContainer = document.querySelector(".game-container");
 const startButton = document.querySelector(".button");
 const menuButton = document.querySelector(".menu-btn");
@@ -38,6 +41,7 @@ let isPlaying = false;
 let gravity = 5;
 let jumping = 0;
 let score = 0;
+let highscore;
 let gravityAnim;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
@@ -112,14 +116,28 @@ function reset() {
   bird.style.top = birdPos;
 }
 
+function updateHighScore() {
+  highscore = parseInt(localStorage.getItem("highscore"));
+  if (highscore !== null) {
+    if (score > highscore) {
+      localStorage.setItem("highscore", score);
+    }
+  } else {
+    localStorage.setItem("highscore", score);
+  }
+}
+
 function endGame() {
+  updateHighScore();
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
   gameOver = true;
   isPlaying = false;
   score = 0;
   finalScore.innerHTML = scoreText.innerHTML;
+  highScore.innerHTML = highscore;
 }
+
 function fly() {
   jumping = 1;
   let jumpCount = 0;

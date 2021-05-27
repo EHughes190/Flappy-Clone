@@ -52,6 +52,7 @@ body {
       top: 40vh;
       left: 30vw;
       z-index: 100;
+      outline-style: none;
       //border-radius: 50%;
     }
 
@@ -70,6 +71,7 @@ body {
     }
 
     .pipe {
+      outline-style: none;
       position: relative;
       height: 100vh;
       width: 6vw;
@@ -78,6 +80,7 @@ body {
     }
 
     .hole {
+      outline-style: none;
       position: relative;
       height: 30vh;
       width: 6vw;
