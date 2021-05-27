@@ -87,7 +87,7 @@ function startGame() {
   scoreText.innerHTML = 0;
   hole.classList.add("animated");
   pipe.classList.add("animated");
-  highscore = parseInt(localStorage.getItem("highscore"));
+  highscore = parseInt(localStorage.getItem("highscore"), 10);
 
   if (!gameOver) {
     applyGravity();
