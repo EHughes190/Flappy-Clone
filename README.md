@@ -1,2 +1,2 @@
 # JS-Game
-A game built with vanilla JS, CSS and HTML
+A flappy bird clone built with vanilla JS, CSS and HTML, and Howler.js for sounds
