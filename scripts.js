@@ -1,3 +1,7 @@
+//import { Howl } from "./node_modules/howler/dist/howler.js";
+
+//const { Howl, Howler } = require("howler");
+
 //FLAPPY BIRD
 //BIRD FALLS UNLESS TAPPING SCREEN/ PRESSING SPACE. BIRD FIXED IN X DIRECTION
 //IF BIRD HITS GROUND -> GAME OVER
@@ -31,7 +35,7 @@ const hole = document.querySelector(".hole");
 const pipe = document.querySelector(".pipe");
 const modalBg = document.querySelector(".modal-bg");
 
-var whoosh = new Howl({
+let whoosh = new Howl({
   src: ["./sounds/whoosh.mp3"],
   volume: 0.2,
 });
@@ -131,7 +135,9 @@ function fly() {
   jumping = 1;
   let jumpCount = 0;
   let jumpInterval = setInterval(function () {
-    birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
+    let birdTop = parseInt(
+      window.getComputedStyle(bird).getPropertyValue("top")
+    );
     if (birdTop >= 90 && jumpCount < 20) {
       bird.style.top = birdTop - gravity + "px";
     }
