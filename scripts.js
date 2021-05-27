@@ -18,6 +18,7 @@
 //Different character choices
 //Particle effects
 
+//SELECTORS
 const bird = document.querySelector(".bird");
 const scoreDiv = document.querySelector(".score");
 const scoreText = document.querySelector(".score__text");
@@ -30,6 +31,12 @@ const hole = document.querySelector(".hole");
 const pipe = document.querySelector(".pipe");
 const modalBg = document.querySelector(".modal-bg");
 
+var whoosh = new Howl({
+  src: ["./sounds/whoosh.mp3"],
+  volume: 0.2,
+});
+
+//VARIABLES
 let fired = false;
 let gameOver = false;
 let isPlaying = false;
@@ -37,12 +44,11 @@ let gravity = 5;
 let jumping = 0;
 let score = 0;
 let gravityAnim;
-//const whoosh = new Audio("./sounds/whoosh.mp3");
-//whoosh.volume = 0.2;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
 
+//EVENT LISTENERS
 startButton.addEventListener("click", startGame);
 
 menuButton.addEventListener("click", reset);
@@ -56,6 +62,7 @@ hole.addEventListener("animationiteration", () => {
 
 document.addEventListener("keydown", (e) => {
   if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
+    whoosh.play();
     fly();
     fired = true;
   }
@@ -63,6 +70,7 @@ document.addEventListener("keydown", (e) => {
 
 document.addEventListener("click", () => {
   if (isPlaying && !gameOver) {
+    whoosh.play();
     fly();
   }
 });
@@ -71,6 +79,7 @@ document.addEventListener("keyup", () => {
   fired = false;
 });
 
+//FUNCTIONS
 function startGame() {
   isPlaying = true;
   score = -1;
@@ -125,7 +134,6 @@ function fly() {
     birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
     if (birdTop >= 90 && jumpCount < 20) {
       bird.style.top = birdTop - gravity + "px";
-      //whoosh.play();
     }
     if (jumpCount > 25) {
       clearInterval(jumpInterval);
