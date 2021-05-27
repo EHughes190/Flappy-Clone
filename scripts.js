@@ -66,7 +66,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 document.addEventListener("click", () => {
-  if (!firstFlap && isPlaying && !gameOver) {
+  if (isPlaying && !gameOver) {
     fly();
     whoosh.play();
   }
