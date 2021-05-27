@@ -44,7 +44,7 @@ let score = 0;
 
 let gravityAnim;
 let collisionAnim;
-let highscore = sessionStorage.setItem("highscore", 0);
+let highscore;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
@@ -131,7 +131,6 @@ function updateHighScore() {
 
 function endGame() {
   updateHighScore();
-  console.log(highscore);
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
   cancelAnimationFrame(collisionAnim);
