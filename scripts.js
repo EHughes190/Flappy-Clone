@@ -44,7 +44,7 @@ let score = 0;
 
 let gravityAnim;
 let collisionAnim;
-let highscore = 0;
+let highscore = sessionStorage.setItem("highscore", 0);
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
