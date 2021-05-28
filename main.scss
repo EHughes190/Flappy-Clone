@@ -71,6 +71,7 @@ body {
     }
 
     .pipe {
+      user-select: none;
       outline-style: none;
       position: relative;
       height: 100vh;
@@ -80,6 +81,7 @@ body {
     }
 
     .hole {
+      user-select: none;
       outline-style: none;
       position: relative;
       height: 30vh;

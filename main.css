@@ -62,6 +62,7 @@ body .game-container .button {
   font-size: 150%;
 }
 body .game-container .pipe {
+  user-select: none;
   outline-style: none;
   position: relative;
   height: 100vh;
@@ -70,6 +71,7 @@ body .game-container .pipe {
   background-color: green;
 }
 body .game-container .hole {
+  user-select: none;
   outline-style: none;
   position: relative;
   height: 30vh;
