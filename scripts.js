@@ -20,6 +20,8 @@
 //Particle effects
 //session storage
 
+//HIGHSCORE IS UNDER CONSTRUCTION
+
 //SELECTORS
 const bird = document.querySelector(".bird");
 const scoreDiv = document.querySelector(".score");
@@ -41,10 +43,9 @@ let isPlaying = false;
 let gravity = 5;
 let jumping = 0;
 let score = 0;
-
+let highscore;
 let gravityAnim;
 let collisionAnim;
-let highscore;
 const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
@@ -89,6 +90,9 @@ function startGame() {
   hole.classList.add("animated");
   pipe.classList.add("animated");
 
+  sessionStorage.setItem("highscore", 0);
+  console.log(highscore);
+
   if (!gameOver) {
     applyGravity();
     checkCollisions();
@@ -97,17 +101,17 @@ function startGame() {
   }
 }
 
-function updateScore() {
+const updateScore = () => {
   score++;
   scoreText.innerHTML = score;
-}
+};
 
-function setPipeGapHeight() {
+const setPipeGapHeight = () => {
   let randomHeight = -(Math.random() * (100 - 40) + 30);
   hole.style.top = randomHeight + "vh";
-}
+};
 
-function reset() {
+const reset = () => {
   modalBg.classList.remove("bg-active");
   hole.classList.remove("animated");
   pipe.classList.remove("animated");
@@ -116,9 +120,9 @@ function reset() {
   scoreDiv.classList.remove("visible");
   gameOver = false;
   bird.style.top = birdPos;
-}
+};
 
-function updateHighScore() {
+const updateHighScore = () => {
   highscore = parseInt(sessionStorage.getItem("highscore"));
   if (highscore !== null) {
     if (score > highscore) {
@@ -127,9 +131,9 @@ function updateHighScore() {
   } else {
     sessionStorage.setItem("highscore", score);
   }
-}
+};
 
-function endGame() {
+const endGame = () => {
   updateHighScore();
   modalBg.classList.add("bg-active");
   cancelAnimationFrame(gravityAnim);
@@ -139,9 +143,9 @@ function endGame() {
   score = 0;
   finalScore.innerHTML = scoreText.innerHTML;
   highScore.innerHTML = highscore;
-}
+};
 
-function fly() {
+const fly = () => {
   jumping = 1;
   let jumpCount = 0;
   let jumpInterval = setInterval(function () {
@@ -158,9 +162,9 @@ function fly() {
     }
     jumpCount++;
   }, 10);
-}
+};
 
-function applyGravity() {
+const applyGravity = () => {
   let birdTop = parseInt(window.getComputedStyle(bird).getPropertyValue("top"));
 
   //if jumping is pressed, gravity isn't allowed to operate
@@ -169,9 +173,9 @@ function applyGravity() {
   }
 
   gravityAnim = requestAnimationFrame(applyGravity);
-}
+};
 
-function checkCollisions() {
+const checkCollisions = () => {
   let birdBot = parseInt(
     window.getComputedStyle(bird).getPropertyValue("bottom")
   );
@@ -196,7 +200,7 @@ function checkCollisions() {
     endGame();
   }
   collisionAnim = requestAnimationFrame(checkCollisions);
-}
+};
 
 // function generatePipe() {
 //   if (pipeGapX > 100) {
