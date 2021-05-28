@@ -46,14 +46,14 @@ let score = 0;
 let highscore;
 let gravityAnim;
 let collisionAnim;
-const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
+sessionStorage.setItem("highscore", 0);
 
 //FUNCTIONS
 const startGame = () => {
   isPlaying = true;
-  score = -1;
+  score = 0;
   scoreDiv.classList.add("visible");
   startButton.style.display = "none";
   heading.style.display = "none";
@@ -61,14 +61,10 @@ const startGame = () => {
   hole.classList.add("animated");
   pipe.classList.add("animated");
 
-  sessionStorage.setItem("highscore", 0);
-  console.log(highscore);
-
   if (!gameOver) {
     applyGravity();
     checkCollisions();
     setPipeGapHeight();
-    updateScore();
   }
 };
 
@@ -90,7 +86,7 @@ const reset = () => {
   heading.style.display = "initial";
   scoreDiv.classList.remove("visible");
   gameOver = false;
-  bird.style.top = birdPos;
+  bird.style.top = 50 + "vh";
 };
 
 const updateHighScore = () => {
