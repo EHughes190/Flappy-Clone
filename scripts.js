@@ -50,37 +50,8 @@ const birdPos = window.getComputedStyle(bird).getPropertyValue("top");
 // let executed = false;
 // let pipeGapX = 0;
 
-//EVENT LISTENERS
-startButton.addEventListener("click", startGame);
-
-menuButton.addEventListener("click", reset);
-
-hole.addEventListener("animationiteration", () => {
-  if (!gameOver) {
-    updateScore();
-    setPipeGapHeight();
-  }
-});
-
-document.addEventListener("keydown", (e) => {
-  if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
-    fly();
-    fired = true;
-  }
-});
-
-document.addEventListener("click", () => {
-  if (isPlaying && !gameOver) {
-    fly();
-  }
-});
-
-document.addEventListener("keyup", () => {
-  fired = false;
-});
-
 //FUNCTIONS
-function startGame() {
+const startGame = () => {
   isPlaying = true;
   score = -1;
   scoreDiv.classList.add("visible");
@@ -99,7 +70,7 @@ function startGame() {
     setPipeGapHeight();
     updateScore();
   }
-}
+};
 
 const updateScore = () => {
   score++;
@@ -107,7 +78,7 @@ const updateScore = () => {
 };
 
 const setPipeGapHeight = () => {
-  let randomHeight = -(Math.random() * (100 - 40) + 30);
+  let randomHeight = -(Math.random() * (100 - 50) + 45);
   hole.style.top = randomHeight + "vh";
 };
 
@@ -201,6 +172,35 @@ const checkCollisions = () => {
   }
   collisionAnim = requestAnimationFrame(checkCollisions);
 };
+
+//EVENT LISTENERS
+startButton.addEventListener("click", startGame);
+
+menuButton.addEventListener("click", reset);
+
+hole.addEventListener("animationiteration", () => {
+  if (!gameOver) {
+    updateScore();
+    setPipeGapHeight();
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (!fired && !gameOver && (e.key === " " || e.key === "ArrowUp")) {
+    fly();
+    fired = true;
+  }
+});
+
+document.addEventListener("click", () => {
+  if (isPlaying && !gameOver) {
+    fly();
+  }
+});
+
+document.addEventListener("keyup", () => {
+  fired = false;
+});
 
 // function generatePipe() {
 //   if (pipeGapX > 100) {
