@@ -2,6 +2,8 @@
 
 A flappy bird clone built with vanilla JS, CSS and HTML.
 
+To play: tap the up arrow key, or spacebar on desktop, or on mobile, tap the screen.
+
 Future Additions:
 
 - Rainbow colours of pipes
