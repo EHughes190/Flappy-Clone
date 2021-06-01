@@ -73,7 +73,7 @@ body {
       border-radius: 10px;
       text-transform: uppercase;
       font-size: 150%;
-      border: 3px solid rgba(255, 255, 255, 0.8);
+      border: 3px solid white;
     }
 
     .pipe {
@@ -151,7 +151,6 @@ body {
       align-items: center;
       flex-direction: column;
       border-radius: 5%;
-      border: 3px solid rgba(255, 255, 255, 0.8);
 
       .menu-btn {
         width: 50%;
@@ -161,7 +160,7 @@ body {
         border-radius: 10px;
         text-transform: uppercase;
         font-size: 150%;
-        border: 3px solid rgba(255, 255, 255, 0.8);
+        border: 3px solid white;
       }
     }
   }
