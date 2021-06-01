@@ -2,6 +2,11 @@
 
 $font-family: "Electrolize", sans-serif;
 
+$btn-primary: rgb(206, 83, 83);
+$color-primary: rgb(240, 128, 128);
+$color-secondary: rgb(173, 216, 230);
+$color-tertiary: rgb(0, 128, 0);
+
 :root {
   --pixel-size: 6;
 }
@@ -20,7 +25,7 @@ body {
   .game-container {
     height: 100vh;
     width: 100vw;
-    background-color: lightblue;
+    background-color: $color-secondary;
     position: fixed;
 
     .heading {
@@ -48,7 +53,7 @@ body {
       height: 5vh;
       width: 8vw;
       position: fixed;
-      background-color: lightcoral;
+      background-color: $color-primary;
       top: 40vh;
       left: 30vw;
       z-index: 100;
@@ -64,7 +69,7 @@ body {
       width: 30vw;
       height: 10vh;
       color: white;
-      background-color: rgb(206, 83, 83);
+      background-color: $btn-primary;
       border-radius: 10px;
       text-transform: uppercase;
       font-size: 150%;
@@ -77,7 +82,7 @@ body {
       height: 100vh;
       width: 6vw;
       left: 100vw;
-      background-color: green;
+      background-color: $color-tertiary;
     }
 
     .hole {
@@ -87,7 +92,7 @@ body {
       height: 30vh;
       width: 6vw;
       left: 100vw;
-      background-color: lightblue;
+      background-color: $color-secondary;
       top: -60vh;
     }
 
@@ -137,7 +142,7 @@ body {
 
     .modal {
       position: relative;
-      background-color: lightcoral;
+      background-color: $color-primary;
       width: 50%;
       height: 30%;
       display: flex;
@@ -150,7 +155,7 @@ body {
         width: 50%;
         height: 30%;
         color: white;
-        background-color: rgb(206, 83, 83);
+        background-color: $btn-primary;
         border-radius: 10px;
         text-transform: uppercase;
         font-size: 150%;
