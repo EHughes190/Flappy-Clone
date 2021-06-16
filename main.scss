@@ -21,151 +21,154 @@ $color-tertiary: rgb(0, 128, 0);
 body {
   height: 100vh;
   width: 100vw;
+}
+.game__container {
+  height: 100vh;
+  width: 100vw;
+  background-color: $color-secondary;
+  position: fixed;
+}
+.heading {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  height: 30vh;
+  width: 100vw;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  .game-container {
-    height: 100vh;
-    width: 100vw;
-    background-color: $color-secondary;
-    position: fixed;
-
-    .heading {
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      justify-content: center;
-      height: 30vh;
-      width: 100vw;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      .heading__sub {
-        font-size: 1.5em;
-      }
-
-      .heading__main {
-        font-size: 3em;
-      }
-    }
-
-    .bird {
-      height: 5vh;
-      width: 8vw;
-      position: fixed;
-      background-color: $color-primary;
-      top: 40vh;
-      left: 30vw;
-      z-index: 100;
-      outline-style: none;
-      //border-radius: 50%;
-    }
-
-    .button {
-      position: absolute;
-      top: 70%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 30vw;
-      height: 10vh;
-      color: white;
-      background-color: $btn-primary;
-      border-radius: 10px;
-      text-transform: uppercase;
-      font-size: 150%;
-      border: 3px solid white;
-    }
-
-    .pipe {
-      user-select: none;
-      outline-style: none;
-      position: relative;
-      height: 100vh;
-      width: 6vw;
-      left: 100vw;
-      background-color: $color-tertiary;
-    }
-
-    .hole {
-      user-select: none;
-      outline-style: none;
-      position: relative;
-      height: 30vh;
-      width: 6vw;
-      left: 100vw;
-      background-color: $color-secondary;
-      top: -60vh;
-    }
-
-    .animated {
-      animation: pipe 2s infinite linear;
-    }
-
-    @keyframes pipe {
-      0% {
-        left: 112vw;
-      }
-      100% {
-        left: -6vw;
-      }
-    }
-
-    .score {
-      position: fixed;
-      z-index: 10;
-      height: 10vh;
-      font-size: 10vh;
-      font-weight: 100;
-      color: rgb(255, 255, 255, 0.8);
-      top: 0;
-      left: 0;
-      visibility: hidden;
-    }
-
-    .visible {
-      visibility: visible;
-    }
+  &__sub {
+    font-size: 1.5em;
   }
 
-  .modal-bg {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+  &__main {
+    font-size: 3em;
+  }
+}
+
+.bird {
+  height: 5vh;
+  width: 8vw;
+  position: fixed;
+  background-color: $color-primary;
+  top: 40vh;
+  left: 30vw;
+  z-index: 100;
+  outline-style: none;
+  //border-radius: 50%;
+}
+
+.btn {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30vw;
+  height: 10vh;
+  color: white;
+  background-color: $btn-primary;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-size: 150%;
+  border: 3px solid white;
+}
+
+.pipe {
+  user-select: none;
+  outline-style: none;
+  position: relative;
+  height: 100vh;
+  width: 6vw;
+  left: 100vw;
+  background-color: $color-tertiary;
+}
+
+.hole {
+  user-select: none;
+  outline-style: none;
+  position: relative;
+  height: 30vh;
+  width: 6vw;
+  left: 100vw;
+  background-color: $color-secondary;
+  top: -60vh;
+}
+
+.animated {
+  animation: pipe 2s infinite linear;
+}
+
+@keyframes pipe {
+  0% {
+    left: 112vw;
+  }
+  100% {
+    left: -6vw;
+  }
+}
+
+.score {
+  position: fixed;
+  z-index: 10;
+  height: 10vh;
+  font-size: 10vh;
+  font-weight: 100;
+  color: rgb(255, 255, 255, 0.8);
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s;
+
+  &__content {
+    position: relative;
+    background-color: $color-primary;
+    width: 50%;
+    height: 30%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s;
-
-    .modal {
-      position: relative;
-      background-color: $color-primary;
-      width: 50%;
-      height: 30%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      flex-direction: column;
-      border-radius: 5%;
-
-      .menu-btn {
-        width: 50%;
-        height: 30%;
-        color: white;
-        background-color: $btn-primary;
-        border-radius: 10px;
-        text-transform: uppercase;
-        font-size: 150%;
-        border: 3px solid white;
-      }
-    }
+    flex-direction: column;
+    border-radius: 5%;
   }
-  .bg-active {
-    visibility: visible;
-    opacity: 1;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
+
+  &__title {
+    margin: 15px;
+  }
+}
+.menu-btn {
+  width: 50%;
+  height: 30%;
+}
+
+.bg-active {
+  visibility: visible;
+  opacity: 1;
 }

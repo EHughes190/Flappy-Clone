@@ -27,13 +27,13 @@ const scoreDiv = document.querySelector(".score");
 const scoreText = document.querySelector(".score__text");
 const finalScore = document.getElementById("final-score");
 const highScore = document.getElementById("highscore");
-const gameContainer = document.querySelector(".game-container");
-const startButton = document.querySelector(".button");
-const menuButton = document.querySelector(".menu-btn");
+const gameContainer = document.querySelector(".game__container");
+const startButton = document.querySelector(".btn");
+const menuButton = document.querySelector(".btn-menu");
 const heading = document.querySelector(".heading");
 const hole = document.querySelector(".hole");
 const pipe = document.querySelector(".pipe");
-const modalBg = document.querySelector(".modal-bg");
+const modalBg = document.querySelector(".modal");
 
 //VARIABLES
 let fired = false;
