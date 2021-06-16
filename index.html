@@ -9,13 +9,13 @@
     <script src="./scripts.js" async defer></script>
   </head>
   <body>
-    <div class="game-container">
+    <div class="game__container">
       <div class="bird"></div>
       <div class="heading">
         <h4 class="heading__sub">Welcome to</h4>
         <h2 class="heading__main">Flappy Clone</h2>
       </div>
-      <button class="button">Start</button>
+      <button class="btn">Start</button>
       <div class="pipe"></div>
       <div class="hole"></div>
       <div class="score">
@@ -24,18 +24,21 @@
       </div>
     </div>
 
-    <div class="modal-bg">
-      <div class="modal">
-        <h2>Game Over</h2>
-        <h2>
-          Highscore:
-          <span id="highscore"></span>
-        </h2>
-        <h2>
-          Score:
-          <span id="final-score"></span>
-        </h2>
-        <button class="button menu-btn">Menu</button>
+    <div class="modal">
+      <div class="modal__content">
+        <div class="modal__text">
+          <h2 class="modal__title">Game Over</h2>
+          <h2>
+            Highscore:
+            <span id="highscore"></span>
+          </h2>
+          <h2>
+            Score:
+            <span id="final-score"></span>
+          </h2>
+        </div>
+
+        <button class="btn btn-menu">Menu</button>
       </div>
     </div>
   </body>
